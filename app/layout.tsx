@@ -14,7 +14,7 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <div className="wrapper">{children}</div>
+        <main>{children}</main>
         <footer className="footer">
           <a
             target="_blank"

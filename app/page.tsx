@@ -62,67 +62,63 @@ export default function Home() {
   }
 
   return (
-    <main>
-      <div className="app-container">
-        <h1 style={styles.header} className="hero-header">
-          Bar Crawl
-        </h1>
-        <form
-          style={styles.formContainer}
-          className="form-container"
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <input
-            style={styles.input}
-            placeholder="City"
-            onChange={(e) =>
-              setRequest((request) => ({
-                ...request,
-                city: e.target.value,
-              }))
-            }
-          />
-          <input
-            style={styles.input}
-            placeholder="Country"
-            onChange={(e) =>
-              setRequest((request) => ({
-                ...request,
-                country: e.target.value,
-              }))
-            }
-          />
-          <button type="submit" className="input-button" onClick={hitAPI}>
-            Build Itinerary
-          </button>
-        </form>
-        <div className="results-container">
-          {loading && <p>{message}</p>}
-          {itinerary &&
-            itinerary
-              .split("\n")
-              .filter((bar) => !!bar)
-              .map((bar, index) => (
-                <div style={{ marginBottom: "30px" }}>
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      a: (props) => {
-                        return (
-                          <a target="_blank" rel="no-opener" href={props.href}>
-                            {props.children}
-                          </a>
-                        );
-                      },
-                    }}
-                  >
-                    {`${index + 1}. ${bar}`}
-                  </ReactMarkdown>
-                </div>
-              ))}
-        </div>
+    <div className="app-container">
+      <h1 style={styles.header} className="hero-header">
+        Bar Crawl
+      </h1>
+      <form
+        style={styles.formContainer}
+        className="form-container"
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <input
+          style={styles.input}
+          placeholder="City"
+          onChange={(e) =>
+            setRequest((request) => ({
+              ...request,
+              city: e.target.value,
+            }))
+          }
+        />
+        <input
+          style={styles.input}
+          placeholder="Country"
+          onChange={(e) =>
+            setRequest((request) => ({
+              ...request,
+              country: e.target.value,
+            }))
+          }
+        />
+        <button type="submit" className="input-button" onClick={hitAPI}>
+          Build Itinerary
+        </button>
+      </form>
+      <div className="results-container">
+        {loading && <p>{message}</p>}
+        {itinerary &&
+          itinerary
+            .split("\n")
+            .filter((bar) => !!bar)
+            .map((bar, index) => (
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  a: (props) => {
+                    return (
+                      <a target="_blank" rel="no-opener" href={props.href}>
+                        {props.children}
+                      </a>
+                    );
+                  },
+                }}
+              >
+                {bar}
+              </ReactMarkdown>
+            ))}
       </div>
-    </main>
+    </div>
   );
 }
 
