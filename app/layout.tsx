@@ -34,17 +34,9 @@ export default function RootLayout({
             <a
               target="_blank"
               rel="no-opener"
-              href="https://twitter.com/dabit3"
+              href="https://github.com/zeosamaster"
             >
-              @dabit3
-            </a>{" "}
-            <a
-              className="sponsor"
-              target="_blank"
-              rel="no-opener"
-              href="https://github.com/dabit3/gpt-travel-advisor"
-            >
-              🫡 Sponsor this project
+              @zeosamaster
             </a>
           </p>
         </footer>
