@@ -18,13 +18,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  let city = "Rio";
-  if (req.body) {
-    let body = JSON.parse(req.body);
-    city = body.city;
-  }
+  let { city = "Lisbon", country } = JSON.parse(req.body);
 
-  let basePrompt = `Give me the names of 10 popular bars where a group of friends may enjoy drinks in ${city}.`;
+  const countryPart = country ? ` in ${country}` : "";
+  let basePrompt = `Give me the names of 10 popular nightlife bars where a group of friends may enjoy drinks in ${city}${countryPart}.`;
   try {
     const response = await fetch("https://api.openai.com/v1/completions", {
       method: "POST",

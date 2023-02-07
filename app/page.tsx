@@ -5,7 +5,9 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 export default function Home() {
-  const [request, setRequest] = useState<{ city?: string }>({});
+  const [request, setRequest] = useState<{ city?: string; country?: string }>(
+    {}
+  );
   let [itinerary, setItinerary] = useState<string>("");
 
   const [loading, setLoading] = useState(false);
@@ -77,6 +79,16 @@ export default function Home() {
               setRequest((request) => ({
                 ...request,
                 city: e.target.value,
+              }))
+            }
+          />
+          <input
+            style={styles.input}
+            placeholder="Country"
+            onChange={(e) =>
+              setRequest((request) => ({
+                ...request,
+                country: e.target.value,
               }))
             }
           />
