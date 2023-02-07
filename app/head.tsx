@@ -1,7 +1,7 @@
 export default function Head() {
   return (
     <>
-      <title>Roam Around</title>
+      <title>Bar Crawl Guide</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta
         name="description"
