@@ -1,4 +1,4 @@
-# GPT Travel advisor
+# GPT Bar crawl advisor
 
 ### Requirements
 
