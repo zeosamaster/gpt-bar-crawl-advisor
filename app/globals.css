@@ -137,7 +137,6 @@ form {
 }
 
 .results-container {
-  width: 800px;
   margin-top: 20px;
   overflow-y: auto;
 }
