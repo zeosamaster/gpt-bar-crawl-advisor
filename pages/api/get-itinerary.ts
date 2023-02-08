@@ -19,7 +19,7 @@ export default async function handler(
   let { city = "Lisbon", country } = JSON.parse(req.body);
 
   const countryPart = country ? ` in ${country}` : "";
-  let basePrompt = `Give me the names of 10 popular nightlife bars where a group of friends may enjoy drinks in ${city}${countryPart}. Do not number each item, just write one name per line.`;
+  let basePrompt = `Give me the names of 10 popular beer bars where a group of friends may enjoy drinks in ${city}${countryPart}. Do not number each item, just write one name per line.`;
   try {
     const response = await fetch("https://api.openai.com/v1/completions", {
       method: "POST",
