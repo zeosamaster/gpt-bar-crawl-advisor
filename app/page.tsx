@@ -107,7 +107,6 @@ export default function Home() {
 const styles = {
   header: {
     textAlign: "center" as "center",
-    marginTop: "60px",
     color: "#c683ff",
     fontWeight: "900",
     fontFamily: "Poppins",
