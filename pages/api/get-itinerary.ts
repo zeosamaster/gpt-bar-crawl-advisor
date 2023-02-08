@@ -2,9 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-  message: string;
-  pointsOfInterestPrompt: any;
-  itinerary: any;
+  itinerary: string;
 };
 
 const GPT_KEY = process.env.GPT_API_KEY;
@@ -30,18 +28,15 @@ export default async function handler(
         model: "text-davinci-003",
         prompt: basePrompt,
         temperature: 0,
-        max_tokens: 550,
+        max_tokens: 100,
       }),
     });
     const itinerary = await response.json();
-    const pointsOfInterestPrompt =
-      "Extract the bar names out of this text, with no additional words, separated by commas: " +
-      itinerary.choices[0].text;
 
     res.status(200).json({
-      message: "success",
-      pointsOfInterestPrompt,
-      itinerary: itinerary.choices[0].text,
+      itinerary: itinerary.choices[0].text
+        .split("\n")
+        .filter((bar: string) => !!bar),
     });
   } catch (err) {
     console.log("error: ", err);

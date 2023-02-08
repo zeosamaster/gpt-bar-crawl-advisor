@@ -8,7 +8,7 @@ export default function Home() {
   const [request, setRequest] = useState<{ city?: string; country?: string }>(
     {}
   );
-  let [itinerary, setItinerary] = useState<string>("");
+  let [itinerary, setItinerary] = useState<string[]>([]);
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -17,7 +17,7 @@ export default function Home() {
     if (!request.city) return;
     setMessage("Building itinerary...");
     setLoading(true);
-    setItinerary("");
+    setItinerary([]);
 
     setTimeout(() => {
       setMessage("Getting closer ...");
@@ -34,30 +34,16 @@ export default function Home() {
       }),
     });
 
-    const json = await response.json();
+    const { itinerary } = await response.json();
 
-    const response2 = await fetch("/api/get-points-of-interest", {
-      method: "POST",
-      body: JSON.stringify({
-        pointsOfInterestPrompt: json.pointsOfInterestPrompt,
-      }),
-    });
-
-    const json2 = await response2.json();
-
-    let pointsOfInterest = JSON.parse(json2.pointsOfInterest);
-    let itinerary = json.itinerary;
-
-    pointsOfInterest.map((point) => {
-      itinerary = itinerary.replace(
-        point,
-        `[${point}](https://www.google.com/search?q=${encodeURIComponent(
-          point + " " + request.city
+    const linkedItinerary: string[] = itinerary.map(
+      (bar: string) =>
+        `[${bar}](https://www.google.com/search?q=${encodeURIComponent(
+          bar + " " + request.city
         )})`
-      );
-    });
+    );
 
-    setItinerary(itinerary);
+    setItinerary(linkedItinerary);
     setLoading(false);
   }
 
@@ -97,26 +83,22 @@ export default function Home() {
       </form>
       <div className="results-container">
         {loading && <p>{message}</p>}
-        {itinerary &&
-          itinerary
-            .split("\n")
-            .filter((bar) => !!bar)
-            .map((bar, index) => (
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  a: (props) => {
-                    return (
-                      <a target="_blank" rel="no-opener" href={props.href}>
-                        {props.children}
-                      </a>
-                    );
-                  },
-                }}
-              >
-                {bar}
-              </ReactMarkdown>
-            ))}
+        {itinerary?.map((bar) => (
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              a: (props) => {
+                return (
+                  <a target="_blank" rel="no-opener" href={props.href}>
+                    {props.children}
+                  </a>
+                );
+              },
+            }}
+          >
+            {bar}
+          </ReactMarkdown>
+        ))}
       </div>
     </div>
   );
